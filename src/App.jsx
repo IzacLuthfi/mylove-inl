@@ -12,6 +12,8 @@ import Planner from './pages/Planner/Planner';
 import Notes from './pages/Notes/Notes';
 import ArsipPesan from './pages/Notes/ArsipPesan';
 import Pengaturan from './pages/Notes/Pengaturan';
+import PengaturanGaleri from './pages/Gallery/Pengaturan';
+import ArsipGaleri from './pages/Gallery/Arsip';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
           <Route path="/arsip" element={<ArsipPesan />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/pengaturan" element={<Pengaturan />} />
+          <Route path="/gallery/pengaturan" element={<PengaturanGaleri />} />
+<Route path="/gallery/arsip" element={<ArsipGaleri />} />
         </Routes>
       </main>
 
