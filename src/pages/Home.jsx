@@ -1,138 +1,187 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { supabase } from "@/config/supabaseClient";
-import { 
-  FiSearch, FiImage, FiVideo, FiCalendar, 
-  FiHeart, FiMessageSquare, FiStar, FiChevronRight 
-} from 'react-icons/fi';
+import { FiClock, FiSettings, FiCalendar, FiHome, FiHeart } from 'react-icons/fi';
 
 const Home = () => {
-  const [daysTogether, setDaysTogether] = useState(0);
-
-  // Tanggal jadian (Silakan sesuaikan tanggal ini, Izac!)
-  const anniversaryDate = new Date("2024-01-01"); 
+  // State untuk tanggal hari ini
+  const [currentDate, setCurrentDate] = useState({ day: '', date: '' });
 
   useEffect(() => {
-    const calculateDays = () => {
-      const today = new Date();
-      const diffTime = Math.abs(today - anniversaryDate);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      setDaysTogether(diffDays);
+    const today = new Date();
+    const dayName = today.toLocaleDateString('en-US', { weekday: 'long' }); // Contoh: Tuesday
+    // Format tanggal: April 19th
+    const date = today.getDate();
+    const month = today.toLocaleDateString('en-US', { month: 'long' });
+    
+    // Logika untuk akhiran angka (st, nd, rd, th)
+    const getOrdinalNum = (n) => {
+      return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
     };
-    calculateDays();
+
+    setCurrentDate({
+      day: dayName,
+      date: `${month} ${getOrdinalNum(date)}`
+    });
   }, []);
 
+  // Fungsi simulasi untuk tombol
+  const handleAction = (action) => {
+    alert(`Fitur ${action} akan segera aktif saat disambung ke database!`);
+  };
+
   return (
-    <div className="min-h-screen animate-fadeIn">
+    <div className="min-h-screen bg-[#FAFAFA] font-sans pb-24 text-[#2A3A6A]">
       
-      {/* 1. HEADER SECTION & LOVE COUNTER */}
-      <section className="px-6 pt-12 pb-8 bg-gradient-to-b from-[#1E293B] to-[#0F172A] rounded-b-[3rem] shadow-2xl relative overflow-hidden">
-        {/* Dekorasi Glow */}
-        <div className="absolute top-[-10%] right-[-10%] w-40 h-40 bg-pink-500/20 rounded-full blur-[60px]"></div>
-        <div className="absolute bottom-0 left-[-10%] w-32 h-32 bg-blue-500/20 rounded-full blur-[50px]"></div>
-
-        <div className="relative z-10">
-          <div className="flex justify-between items-center mb-6">
-            <div>
-              <h1 className="text-3xl font-bold tracking-tight">MyLove I&L</h1>
-              <p className="text-gray-400 text-sm mt-1">Halo Izac & Lian!</p>
-            </div>
-            <div className="bg-white/5 p-2 rounded-2xl border border-white/10">
-              <FiHeart className="text-pink-500 text-xl animate-pulse" />
-            </div>
+      {/* 1. HEADER */}
+      <header className="px-6 pt-10 pb-6 flex justify-between items-center">
+        <div className="flex items-center gap-4">
+          {/* Logo Circle */}
+          <div className="relative flex items-center justify-center w-12 h-12 rounded-full border-4 border-[#2A3A6A]">
+            <div className="w-8 h-8 bg-[#D85482] rounded-full"></div>
           </div>
-
-          {/* Love Counter Card */}
-          <div className="bg-gradient-to-r from-blue-600/20 to-pink-600/20 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 flex items-center justify-between shadow-lg">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-blue-300 font-semibold mb-1">Sudah Bersama Selama</p>
-              <h2 className="text-4xl font-black text-white">{daysTogether} <span className="text-lg font-normal text-gray-300">Hari</span></h2>
-            </div>
-            <Link to="/planner" className="bg-white text-[#0F172A] p-3 rounded-full shadow-lg hover:scale-110 transition">
-              <FiChevronRight className="text-xl" />
-            </Link>
+          {/* Dynamic Date */}
+          <div className="leading-tight">
+            <h2 className="text-xl font-semibold text-[#2A3A6A]">{currentDate.day}</h2>
+            <h2 className="text-xl font-semibold text-[#2A3A6A]">{currentDate.date}</h2>
           </div>
-        </div>
-      </section>
-
-      {/* 2. SEARCH SECTION */}
-      <section className="px-6 -mt-6 relative z-20">
-        <div className="bg-[#1E293B] flex items-center px-5 py-4 rounded-2xl shadow-xl border border-white/5">
-          <FiSearch className="text-gray-400 mr-3" />
-          <input 
-            type="text" 
-            placeholder="Cari kenangan manis..." 
-            className="bg-transparent w-full focus:outline-none text-sm text-white placeholder-gray-500"
-          />
-        </div>
-      </section>
-
-      {/* 3. HORIZONTAL ALBUMS SECTION */}
-      <section className="mt-10 pl-6">
-        <div className="flex justify-between items-center pr-6 mb-4">
-          <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500">Album Unggulan</h3>
-          <Link to="/gallery" className="text-xs text-blue-400 font-medium">Lihat Semua</Link>
         </div>
         
-        <div className="flex overflow-x-auto gap-5 pb-6 scrollbar-hide">
-          {/* Folder Foto */}
-          <div className="min-w-[160px] aspect-[4/5] bg-gradient-to-br from-blue-500 to-indigo-600 rounded-[2.5rem] p-6 flex flex-col justify-between shadow-xl shadow-blue-900/20">
-            <div className="bg-white/20 w-fit p-3 rounded-2xl">
-              <FiImage className="text-white text-xl" />
-            </div>
-            <div>
-              <h4 className="font-bold text-lg leading-tight">Galeri<br/>Foto</h4>
-              <p className="text-xs text-blue-100 mt-2 opacity-80">1.2k Kenangan</p>
-            </div>
+        {/* Avatars (Simulasi Izac & Lian) */}
+        <div className="flex -space-x-4">
+          <img className="w-12 h-12 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Lian" />
+          <img className="w-12 h-12 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Izac" />
+        </div>
+      </header>
+
+      {/* 2. WHAT'S NEW SECTION */}
+      <section className="px-6 mb-8">
+        <h3 className="text-2xl font-bold text-[#2A3A6A] mb-4">What's new</h3>
+        
+        <div className="bg-[#2A4480] rounded-[2rem] p-6 relative overflow-hidden text-white shadow-lg">
+          {/* Ilustrasi Hati (Custom Shape) */}
+          <div className="absolute right-4 top-6 flex items-start gap-1">
+            <FiHeart size={50} className="text-[#D85482] fill-[#D85482] drop-shadow-md" />
+            <div className="w-4 h-4 bg-[#D85482] rounded-full mt-2 shadow-md"></div>
           </div>
 
-          {/* Folder Video */}
-          <div className="min-w-[160px] aspect-[4/5] bg-[#1E293B] rounded-[2.5rem] p-6 flex flex-col justify-between shadow-xl border border-white/5">
-            <div className="bg-purple-500/20 w-fit p-3 rounded-2xl">
-              <FiVideo className="text-purple-400 text-xl" />
-            </div>
-            <div>
-              <h4 className="font-bold text-lg leading-tight">Momen<br/>Video</h4>
-              <p className="text-xs text-gray-500 mt-2">800 File</p>
-            </div>
+          <h4 className="text-xl font-bold mb-4">Date Planned</h4>
+          <div className="mb-6">
+            <p className="font-semibold text-white/90">Date Night</p>
+            <p className="text-sm text-white/80 leading-relaxed max-w-[60%]">
+              Sat 30 Apr 7:30pm at<br/>Peach Pit
+            </p>
           </div>
 
-          {/* Folder Favorit */}
-          <div className="min-w-[160px] aspect-[4/5] bg-gradient-to-br from-pink-500 to-rose-600 rounded-[2.5rem] p-6 flex flex-col justify-between shadow-xl shadow-pink-900/20">
-            <div className="bg-white/20 w-fit p-3 rounded-2xl">
-              <FiStar className="text-white text-xl" />
-            </div>
-            <div>
-              <h4 className="font-bold text-lg leading-tight">Paling<br/>Berkesan</h4>
-              <p className="text-xs text-pink-100 mt-2 opacity-80">Pilihan Izac & Lian</p>
-            </div>
+          <div className="flex flex-wrap gap-3">
+            <button onClick={() => handleAction('Confirm')} className="px-5 py-1.5 border border-white rounded-full text-xs font-bold uppercase tracking-wide hover:bg-white/10 transition">
+              Confirm
+            </button>
+            <button onClick={() => handleAction('Decline')} className="px-5 py-1.5 border border-white rounded-full text-xs font-bold uppercase tracking-wide hover:bg-white/10 transition">
+              Decline
+            </button>
+            <button onClick={() => handleAction('Update')} className="px-5 py-1.5 border border-white rounded-full text-xs font-bold uppercase tracking-wide hover:bg-white/10 transition">
+              Update
+            </button>
           </div>
         </div>
       </section>
 
-      {/* 4. GRID CATEGORIES SECTION */}
-      <section className="px-6 mt-4">
-        <h3 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-5">Menu Utama</h3>
-        <div className="grid grid-cols-2 gap-4">
+      {/* 3. YOUR NEXT DATE SECTION */}
+      <section className="px-6 mb-8">
+        <h3 className="text-2xl font-bold text-[#2A3A6A] mb-4">Your next date</h3>
+        
+        {/* Horizontal Scroll Container */}
+        <div className="flex overflow-x-auto gap-4 scrollbar-hide pb-2">
           
-          <Link to="/notes" className="bg-[#1E293B] p-5 rounded-[2rem] border border-white/5 flex flex-col gap-3 hover:bg-[#26334A] transition active:scale-95">
-            <div className="bg-green-500/10 w-fit p-3 rounded-2xl text-green-400">
-              <FiMessageSquare className="text-xl" />
+          {/* Card 1: Gambar Restoran */}
+          <div className="min-w-[200px] h-[220px] rounded-[2rem] overflow-hidden relative shadow-md">
+            <img 
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" 
+              alt="Restaurant" 
+              className="w-full h-full object-cover"
+            />
+            {/* Tag Tanggal */}
+            <div className="absolute bottom-4 right-4 bg-[#F8F7F4] rounded-xl px-4 py-2 flex flex-col items-center justify-center shadow-lg">
+              <span className="text-2xl font-bold text-[#D85482] leading-none">21</span>
+              <span className="text-xs font-bold text-[#2A4480]">NOV</span>
             </div>
-            <span className="font-bold text-sm">Catatan Hati</span>
-            <span className="text-[10px] text-gray-500 -mt-2">123 Pesan Tersimpan</span>
-          </Link>
+          </div>
 
-          <Link to="/planner" className="bg-[#1E293B] p-5 rounded-[2rem] border border-white/5 flex flex-col gap-3 hover:bg-[#26334A] transition active:scale-95">
-            <div className="bg-orange-500/10 w-fit p-3 rounded-2xl text-orange-400">
-              <FiCalendar className="text-xl" />
+          {/* Card 2: Detail Kencan */}
+          <div className="min-w-[200px] h-[220px] bg-[#2A4480] rounded-[2rem] p-6 relative flex flex-col justify-end shadow-md">
+            {/* Ilustrasi Hati */}
+            <div className="absolute left-6 top-6 flex items-start gap-1">
+              <FiHeart size={50} className="text-[#D85482] fill-[#D85482] drop-shadow-md" />
+              <div className="w-4 h-4 bg-[#D85482] rounded-full mt-2 shadow-md"></div>
             </div>
-            <span className="font-bold text-sm">Date Planner</span>
-            <span className="text-[10px] text-gray-500 -mt-2">12 Rencana Kencan</span>
-          </Link>
+            
+            <div className="text-white mt-auto">
+              <h4 className="font-bold mb-1">Dinner Date</h4>
+              <p className="text-xs text-white/80 leading-relaxed">
+                Saturday 7:30pm at<br/>The French Café
+              </p>
+            </div>
+          </div>
 
         </div>
       </section>
+
+      {/* 4. PLAN A DATE SECTION */}
+      <section className="px-6">
+        <h3 className="text-2xl font-bold text-[#2A3A6A] mb-4">Plan a date</h3>
+        
+        <div className="grid grid-cols-2 gap-4">
+          {/* Kotak Kiri (Hati) */}
+          <Link to="/planner/new" className="aspect-square bg-[#2A4480] rounded-[2rem] flex items-center justify-center shadow-md hover:scale-95 transition-transform">
+            <div className="flex items-start gap-1">
+              <FiHeart size={60} className="text-[#D85482] fill-[#D85482] drop-shadow-md" />
+              <div className="w-5 h-5 bg-[#D85482] rounded-full mt-2 shadow-md"></div>
+            </div>
+          </Link>
+
+          {/* Kotak Kanan (Jam) */}
+          <Link to="/planner/schedule" className="aspect-square bg-[#2A4480] rounded-[2rem] flex items-center justify-center shadow-md hover:scale-95 transition-transform">
+            <div className="bg-[#F8F7F4] w-[70px] h-[70px] rounded-full flex items-center justify-center shadow-md">
+              <FiClock size={36} className="text-[#2A4480]" />
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* 5. BOTTOM NAVIGATION BAR (Mockup) */}
+      <nav className="fixed bottom-0 left-0 w-full bg-[#FAFAFA] border-t border-gray-200 px-6 py-4 flex justify-between items-center z-50 pb-safe">
+        <Link to="/" className="flex flex-col items-center gap-1 text-[#2A3A6A]">
+          <div className="relative">
+            <FiHome size={28} className="fill-current" />
+            <div className="absolute -top-1 -right-2 w-3 h-3 bg-[#D85482] rounded-full border border-white"></div>
+          </div>
+          <span className="text-[10px] font-bold">Home</span>
+        </Link>
+        
+        <Link to="/hints" className="flex flex-col items-center gap-1 text-black">
+          <div className="flex items-start">
+            <FiHeart size={28} className="fill-current" />
+            <div className="w-2 h-2 bg-black rounded-full mt-1 ml-0.5"></div>
+          </div>
+          <span className="text-[10px] font-bold">Hints</span>
+        </Link>
+
+        <Link to="/calendar" className="flex flex-col items-center gap-1 text-black">
+          <div className="flex items-start">
+            <div className="w-7 h-7 bg-black rounded-sm"></div>
+            <div className="w-2 h-2 bg-black rounded-full mt-1 ml-1"></div>
+          </div>
+          <span className="text-[10px] font-bold">Calendar</span>
+        </Link>
+
+        <Link to="/settings" className="flex flex-col items-center gap-1 text-black">
+          <div className="flex items-start">
+            <FiSettings size={28} className="fill-current" />
+            <div className="w-2 h-2 bg-black rounded-full mt-1 ml-0.5"></div>
+          </div>
+          <span className="text-[10px] font-bold">Settings</span>
+        </Link>
+      </nav>
 
     </div>
   );

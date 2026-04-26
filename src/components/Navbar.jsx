@@ -1,35 +1,67 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiHome, FiImage, FiPlus, FiMessageSquare, FiUser } from 'react-icons/fi';
+import { FiHome, FiImage, FiPlus, FiMessageSquare, FiCalendar } from 'react-icons/fi';
 
 const Navbar = () => {
   const location = useLocation();
   
-  // Fungsi untuk mengecek halaman mana yang sedang aktif
-  const isActive = (path) => location.pathname === path ? "text-blue-500" : "text-gray-500 hover:text-white";
+  // Fungsi untuk mengecek halaman aktif mengembalikan boolean
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#0F172A]/90 backdrop-blur-md border-t border-gray-800 px-6 py-3 flex justify-between items-center rounded-t-[2rem] z-50">
-      <Link to="/" className={`flex flex-col items-center transition ${isActive('/')}`}>
-        <FiHome className="text-2xl mb-1" />
+    <div className="fixed bottom-0 left-0 right-0 bg-[#FAFAFA] border-t border-gray-200 px-6 py-3 flex justify-between items-center z-50 pb-[env(safe-area-inset-bottom)]">
+      
+      {/* Menu Home */}
+      <Link to="/" className="flex flex-col items-center gap-1 transition-transform active:scale-95 w-12">
+        <div className="relative">
+          <FiHome size={26} className={isActive('/') ? 'text-[#2A3A6A] fill-[#2A3A6A]/10' : 'text-gray-400'} />
+          {isActive('/') && (
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#D85482] rounded-full border-2 border-[#FAFAFA]"></div>
+          )}
+        </div>
+        <span className={`text-[10px] font-bold ${isActive('/') ? 'text-[#2A3A6A]' : 'text-gray-400'}`}>Home</span>
       </Link>
-      <Link to="/gallery" className={`flex flex-col items-center transition ${isActive('/gallery')}`}>
-        <FiImage className="text-2xl mb-1" />
+
+      {/* Menu Gallery */}
+      <Link to="/gallery" className="flex flex-col items-center gap-1 transition-transform active:scale-95 w-12">
+        <div className="relative">
+          <FiImage size={26} className={isActive('/gallery') ? 'text-[#2A3A6A] fill-[#2A3A6A]/10' : 'text-gray-400'} />
+          {isActive('/gallery') && (
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#D85482] rounded-full border-2 border-[#FAFAFA]"></div>
+          )}
+        </div>
+        <span className={`text-[10px] font-bold ${isActive('/gallery') ? 'text-[#2A3A6A]' : 'text-gray-400'}`}>Gallery</span>
       </Link>
       
-      {/* Tombol Plus Mengambang */}
+      {/* Tombol Plus Mengambang (Floating Action Button) */}
       <div className="relative -top-6">
-        <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-full shadow-lg shadow-blue-500/40 transform transition hover:scale-105 border-4 border-[#0F172A]">
-          <FiPlus className="text-2xl" />
+        <button className="bg-[#D85482] text-white p-3.5 rounded-full shadow-[0_8px_16px_rgba(216,84,130,0.3)] transform transition hover:scale-105 active:scale-95 border-4 border-[#FAFAFA] flex items-center justify-center">
+          <FiPlus size={24} strokeWidth={3} />
         </button>
       </div>
 
-      <Link to="/notes" className={`flex flex-col items-center transition ${isActive('/notes')}`}>
-        <FiMessageSquare className="text-2xl mb-1" />
+      {/* Menu Notes */}
+      <Link to="/notes" className="flex flex-col items-center gap-1 transition-transform active:scale-95 w-12">
+        <div className="relative">
+          <FiMessageSquare size={26} className={isActive('/notes') ? 'text-[#2A3A6A] fill-[#2A3A6A]/10' : 'text-gray-400'} />
+          {isActive('/notes') && (
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#D85482] rounded-full border-2 border-[#FAFAFA]"></div>
+          )}
+        </div>
+        <span className={`text-[10px] font-bold ${isActive('/notes') ? 'text-[#2A3A6A]' : 'text-gray-400'}`}>Notes</span>
       </Link>
-      <Link to="/planner" className={`flex flex-col items-center transition ${isActive('/planner')}`}>
-        <FiUser className="text-2xl mb-1" />
+
+      {/* Menu Planner */}
+      <Link to="/planner" className="flex flex-col items-center gap-1 transition-transform active:scale-95 w-12">
+        <div className="relative">
+          <FiCalendar size={26} className={isActive('/planner') ? 'text-[#2A3A6A] fill-[#2A3A6A]/10' : 'text-gray-400'} />
+          {isActive('/planner') && (
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#D85482] rounded-full border-2 border-[#FAFAFA]"></div>
+          )}
+        </div>
+        <span className={`text-[10px] font-bold ${isActive('/planner') ? 'text-[#2A3A6A]' : 'text-gray-400'}`}>Planner</span>
       </Link>
+
     </div>
   );
 };
