@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from "@/config/supabaseClient";
+// import { supabase } from "@/config/supabaseClient";
 import { 
   FiArrowLeft, FiPlus, FiCalendar, FiClock, 
   FiMapPin, FiCheckCircle, FiMoreVertical 
@@ -17,7 +17,7 @@ const Planner = () => {
     { day: 'Jum', date: 16 }, { day: 'Sab', date: 17 }
   ];
 
-  // Simulasi data rencana kencan
+  // Simulasi data rencana kencan (Disesuaikan warnanya dengan tema baru)
   const dummyPlans = [
     {
       id: 1,
@@ -26,18 +26,22 @@ const Planner = () => {
       time: '19:00 WIB',
       location: 'Skyview Restaurant',
       status: 'upcoming',
-      color: 'from-purple-500/20 to-pink-600/10',
-      accent: 'text-pink-400'
+      bgColor: 'bg-[#2A4480]', // Navy
+      textColor: 'text-white',
+      accentColor: 'text-white/80',
+      iconBg: 'bg-white/20'
     },
     {
       id: 2,
-      title: 'Nonton Bioskop (Horor)',
+      title: 'Nonton Bioskop',
       date: '18 Feb 2024',
       time: '15:30 WIB',
       location: 'CGV Mall Pusat',
       status: 'upcoming',
-      color: 'from-blue-500/20 to-cyan-600/10',
-      accent: 'text-blue-400'
+      bgColor: 'bg-[#D85482]', // Pink
+      textColor: 'text-white',
+      accentColor: 'text-white/90',
+      iconBg: 'bg-white/20'
     },
     {
       id: 3,
@@ -46,51 +50,59 @@ const Planner = () => {
       time: '16:00 WIB',
       location: 'Taman Kota',
       status: 'completed',
-      color: 'from-gray-500/10 to-gray-600/5',
-      accent: 'text-green-500'
+      bgColor: 'bg-white',
+      textColor: 'text-gray-400',
+      accentColor: 'text-gray-400',
+      iconBg: 'bg-gray-100'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0F172A] pb-24 font-sans animate-fadeIn">
+    <div className="min-h-screen bg-[#FAFAFA] pb-28 font-sans text-[#2A3A6A] animate-fadeIn selection:bg-[#D85482]/30">
       
       {/* 1. STICKY HEADER */}
-      <header className="sticky top-0 z-30 bg-[#0F172A]/90 backdrop-blur-md px-6 py-5 flex items-center justify-between border-b border-white/5 shadow-sm">
+      <header className="sticky top-0 z-30 bg-[#FAFAFA]/90 backdrop-blur-lg px-6 py-5 flex items-center justify-between border-b border-gray-200 shadow-sm">
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate(-1)} 
-            className="p-2 bg-white/5 rounded-xl text-white active:scale-90 transition"
+            className="p-2 bg-white shadow-sm border border-gray-100 rounded-full text-[#2A3A6A] active:scale-90 transition-all"
           >
             <FiArrowLeft size={20} />
           </button>
-          <h1 className="text-xl font-bold text-white tracking-wide">Date Planner</h1>
+          <div>
+            <h1 className="text-xl font-bold tracking-wide">Date Planner</h1>
+            <p className="text-[10px] text-[#D85482] font-bold uppercase tracking-wider">MyLove I&L Schedule</p>
+          </div>
         </div>
-        <div className="bg-white/5 p-2 rounded-xl text-orange-400">
+        <div className="bg-[#2A4480]/10 p-2.5 rounded-xl text-[#2A4480]">
           <FiCalendar size={20} />
         </div>
       </header>
 
       {/* 2. MINI CALENDAR (Date Strip) */}
       <section className="mt-6 px-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-white">Februari 2024</h2>
-          <button className="text-xs text-blue-400 font-semibold bg-blue-500/10 px-3 py-1.5 rounded-lg">
+        <div className="flex justify-between items-center mb-5">
+          <h2 className="text-lg font-bold text-[#2A3A6A]">Februari 2024</h2>
+          <button className="text-xs text-[#D85482] font-bold bg-[#D85482]/10 hover:bg-[#D85482]/20 px-3 py-1.5 rounded-lg transition-colors">
             Hari Ini
           </button>
         </div>
+        
         <div className="flex justify-between gap-2 overflow-x-auto scrollbar-hide pb-2">
           {dates.map((item, index) => (
             <button 
               key={index}
               onClick={() => setActiveDate(item.date)}
-              className={`flex flex-col items-center min-w-[50px] p-3 rounded-2xl border transition active:scale-90 ${
+              className={`flex flex-col items-center min-w-[55px] p-3 rounded-2xl border transition-all active:scale-90 ${
                 activeDate === item.date 
-                  ? 'bg-gradient-to-b from-blue-500 to-indigo-600 border-blue-400 shadow-lg shadow-blue-900/30 text-white' 
-                  : 'bg-[#1E293B] border-white/5 text-gray-400 hover:bg-[#26334A]'
+                  ? 'bg-[#2A4480] border-[#2A4480] shadow-lg shadow-[#2A4480]/20 text-white transform -translate-y-1' 
+                  : 'bg-white border-gray-200 text-gray-500 hover:border-[#2A4480]/30 hover:bg-gray-50'
               }`}
             >
-              <span className="text-xs font-medium mb-1">{item.day}</span>
-              <span className={`text-lg font-bold ${activeDate === item.date ? 'text-white' : 'text-gray-200'}`}>
+              <span className={`text-xs font-semibold mb-1 ${activeDate === item.date ? 'text-white/80' : 'text-gray-400'}`}>
+                {item.day}
+              </span>
+              <span className={`text-lg font-bold ${activeDate === item.date ? 'text-white' : 'text-[#2A3A6A]'}`}>
                 {item.date}
               </span>
             </button>
@@ -100,33 +112,38 @@ const Planner = () => {
 
       {/* 3. UPCOMING PLANS SECTION */}
       <section className="px-6 mt-8">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-4 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+        <h3 className="text-xs font-bold uppercase tracking-widest text-[#2A4480] mb-5 flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#D85482] animate-pulse"></span>
           Akan Datang
         </h3>
         
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           {dummyPlans.filter(plan => plan.status === 'upcoming').map(plan => (
-            <div key={plan.id} className={`bg-gradient-to-br ${plan.color} p-5 rounded-[2rem] border border-white/10 shadow-lg relative group cursor-pointer active:scale-95 transition`}>
+            <div 
+              key={plan.id} 
+              className={`${plan.bgColor} p-6 rounded-[2rem] shadow-md relative group cursor-pointer active:scale-95 transition-transform`}
+            >
               
-              <div className="flex justify-between items-start mb-4">
-                <div className={`p-3 rounded-2xl bg-[#0F172A]/50 backdrop-blur-sm ${plan.accent}`}>
-                  <FiCalendar size={20} />
+              <div className="flex justify-between items-start mb-5">
+                <div className={`p-3 rounded-2xl ${plan.iconBg} ${plan.textColor} backdrop-blur-sm shadow-sm`}>
+                  <FiCalendar size={22} />
                 </div>
-                <button className="text-gray-400 p-1">
+                <button className={`${plan.textColor} opacity-80 hover:opacity-100 p-1 transition-opacity`}>
                   <FiMoreVertical size={20} />
                 </button>
               </div>
 
-              <h4 className="font-bold text-xl text-white mb-3">{plan.title}</h4>
+              <h4 className={`font-bold text-2xl ${plan.textColor} mb-4 leading-tight tracking-wide`}>
+                {plan.title}
+              </h4>
               
-              <div className="flex flex-col gap-2 text-sm text-gray-300">
+              <div className={`flex flex-col gap-2.5 text-sm ${plan.accentColor} font-medium`}>
                 <div className="flex items-center gap-3">
-                  <FiClock className={plan.accent} />
+                  <FiClock size={16} />
                   <span>{plan.date} • {plan.time}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <FiMapPin className={plan.accent} />
+                  <FiMapPin size={16} />
                   <span>{plan.location}</span>
                 </div>
               </div>
@@ -137,27 +154,33 @@ const Planner = () => {
 
       {/* 4. COMPLETED PLANS SECTION */}
       <section className="px-6 mt-8 mb-4">
-        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4 flex items-center gap-2">
-          <FiCheckCircle size={14} /> Kenangan Terlewati
+        <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-5 flex items-center gap-2">
+          <FiCheckCircle size={16} /> Kenangan Terlewati
         </h3>
         
         <div className="flex flex-col gap-3">
           {dummyPlans.filter(plan => plan.status === 'completed').map(plan => (
-            <div key={plan.id} className="bg-[#1E293B] p-4 rounded-[1.5rem] border border-white/5 flex items-center justify-between opacity-70">
+            <div key={plan.id} className="bg-gray-100 p-5 rounded-[1.5rem] border border-gray-200 flex items-center justify-between">
               <div>
-                <h4 className="font-bold text-sm text-gray-300 line-through decoration-gray-500">{plan.title}</h4>
-                <p className="text-xs text-gray-500 mt-1">{plan.date}</p>
+                <h4 className="font-bold text-[#2A3A6A] line-through decoration-gray-400 decoration-2 opacity-60">
+                  {plan.title}
+                </h4>
+                <p className="text-xs font-medium text-gray-400 mt-1">{plan.date}</p>
               </div>
-              <FiCheckCircle className="text-green-500/50" size={20} />
+              <div className="bg-white p-2 rounded-full shadow-sm">
+                <FiCheckCircle className="text-green-500" size={20} />
+              </div>
             </div>
           ))}
         </div>
       </section>
 
       {/* 5. FLOATING ACTION BUTTON (Buat Rencana Baru) */}
-      <div className="fixed bottom-28 right-6 z-40">
-        <button className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-4 rounded-[1.5rem] shadow-xl shadow-blue-500/30 hover:scale-105 transition active:scale-90 flex items-center justify-center border border-blue-400/50">
-          <FiPlus size={24} />
+      <div className="fixed bottom-24 right-6 z-40">
+        <button 
+          className="bg-[#D85482] text-white p-4 rounded-[1.25rem] shadow-lg shadow-[#D85482]/40 hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center border-2 border-white"
+        >
+          <FiPlus size={24} strokeWidth={3} />
         </button>
       </div>
 
