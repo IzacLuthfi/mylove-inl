@@ -14,6 +14,12 @@ import ArsipPesan from './pages/Notes/ArsipPesan';
 import Pengaturan from './pages/Notes/Pengaturan';
 import PengaturanGaleri from './pages/Gallery/Pengaturan';
 import ArsipGaleri from './pages/Gallery/Arsip';
+import BaruDihapus from './pages/Gallery/BaruDihapus';
+import Brankas from './pages/Gallery/Brankas';
+import PengaturanVideo from './pages/Video/PengaturanVideo';
+import ArsipVideo from './pages/Video/ArsipVideo';
+import BarudihapusVideo from './pages/Video/BarudihapusVideo';
+import BrankasVideo from './pages/Video/BrankasVideo';
 
 function App() {
   return (
@@ -31,6 +37,12 @@ function App() {
           <Route path="/pengaturan" element={<Pengaturan />} />
           <Route path="/gallery/pengaturan" element={<PengaturanGaleri />} />
 <Route path="/gallery/arsip" element={<ArsipGaleri />} />
+<Route path="/gallery/barudihapus" element={<BaruDihapus />} />
+<Route path="/gallery/brankas" element={<Brankas />} />
+<Route path="/video/pengaturan" element={<PengaturanVideo />} />
+<Route path="/video/arsip" element={<ArsipVideo />} />
+<Route path="/video/barudihapus" element={<BarudihapusVideo />} />
+<Route path="/video/brankas" element={<BrankasVideo />} />
         </Routes>
       </main>
 
