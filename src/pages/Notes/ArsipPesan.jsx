@@ -38,8 +38,6 @@ const ArsipPesan = () => {
         .eq('id', id);
 
       if (error) throw error;
-      
-      // Filter otomatis tanpa harus fetch ulang ke database (lebih cepat)
       setNotes(currentNotes => currentNotes.filter(note => note.id !== id));
     } catch (error) {
       console.error("Error restoring note:", error.message);
@@ -47,47 +45,40 @@ const ArsipPesan = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-white p-6 font-sans">
+    <div className="min-h-screen bg-[#FAFAFA] text-[#2A3A6A] p-6 font-sans">
       
-      {/* Header */}
       <div className="flex items-center gap-4 mb-8">
-        <button 
-          onClick={() => navigate(-1)}
-          className="p-2 bg-white/5 hover:bg-white/10 rounded-full transition-colors"
-        >
+        <button onClick={() => navigate(-1)} className="p-2 bg-white border border-gray-100 shadow-sm hover:bg-gray-50 rounded-full transition-colors">
           <FiArrowLeft size={20} />
         </button>
-        <h1 className="text-2xl font-semibold tracking-wide">Arsip Pesan</h1>
+        <div>
+           <h1 className="text-xl font-bold tracking-wide">Arsip Pesan</h1>
+           <p className="text-xs text-[#2A4480] font-semibold">Tersimpan aman</p>
+        </div>
       </div>
 
-      {/* Content */}
       {isLoading ? (
         <div className="flex justify-center items-center h-40">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-400"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#2A4480]"></div>
         </div>
       ) : notes.length === 0 ? (
-        <div className="flex flex-col items-center justify-center mt-20 text-gray-400">
-          <FiInbox size={48} className="mb-4 opacity-50" />
-          <p>Belum ada pesan yang diarsipkan.</p>
+        <div className="flex flex-col items-center justify-center mt-32 text-gray-400">
+          <div className="p-4 bg-gray-100 rounded-full mb-4">
+            <FiInbox size={40} className="opacity-50 text-[#2A3A6A]" />
+          </div>
+          <p className="text-sm font-medium">Kotak arsip kosong.</p>
         </div>
       ) : (
         <div className="flex flex-col gap-4">
           {notes.map(note => (
-            <div 
-              key={note.id} 
-              className="bg-white/5 hover:bg-white/10 p-5 rounded-2xl border border-white/5 transition-all duration-300"
-            >
-              <h3 className="font-semibold text-lg text-blue-50 mb-1">{note.title}</h3>
-              <p className="text-sm text-gray-400 line-clamp-2 mb-4 leading-relaxed">
+            <div key={note.id} className="bg-white p-5 rounded-[1.5rem] border border-gray-200 shadow-sm transition-all duration-300">
+              <h3 className="font-bold text-lg text-[#2A3A6A] mb-1">{note.title}</h3>
+              <p className="text-sm text-gray-500 line-clamp-2 mb-4 leading-relaxed">
                 {note.content}
               </p>
-
               <div className="flex justify-end">
-                <button
-                  onClick={() => restoreNote(note.id)}
-                  className="text-pink-400 hover:text-pink-300 text-sm flex items-center gap-2 px-3 py-1.5 bg-pink-400/10 hover:bg-pink-400/20 rounded-lg transition-colors"
-                >
-                  <FiRefreshCcw size={14} /> Pulihkan
+                <button onClick={() => restoreNote(note.id)} className="text-[#2A4480] font-bold text-xs flex items-center gap-2 px-4 py-2 bg-[#2A4480]/10 hover:bg-[#2A4480]/20 rounded-xl transition-colors active:scale-95">
+                  <FiRefreshCcw size={14} /> Kembalikan
                 </button>
               </div>
             </div>
