@@ -8,15 +8,10 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['Logo.png', 'favicon.ico', 'robots.txt'],
       manifest: {
         name: 'MyLove Izac & Lian',
         short_name: 'MyLove I&L',
-        description: 'Aplikasi Kenangan Manis Izac dan Lian',
         theme_color: '#FAFAFA',
-        background_color: '#FAFAFA',
-        display: 'standalone', // Membuatnya tampil seperti aplikasi asli tanpa bar browser
-        orientation: 'portrait',
         icons: [
           {
             src: 'Logo.png',
@@ -27,12 +22,6 @@ export default defineConfig({
             src: 'Logo.png',
             sizes: '512x512',
             type: 'image/png'
-          },
-          {
-            src: 'Logo.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
           }
         ]
       }
@@ -43,4 +32,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 1600, // Menghindari peringatan file terlalu besar
+  }
 })
