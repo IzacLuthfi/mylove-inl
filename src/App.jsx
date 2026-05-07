@@ -23,7 +23,7 @@ const Kenangan = lazy(() => import('./pages/Kenangan'));
 const Gallery = lazy(() => import('./pages/Gallery/Gallery'));
 const PengaturanGaleri = lazy(() => import('./pages/Gallery/Pengaturan'));
 const ArsipGaleri = lazy(() => import('./pages/Gallery/Arsip'));
-const BaruDihapus = lazy(() => import('./pages/Gallery/BaruDihapus'));
+const BaruDihapus = lazy(() => import('./pages/Gallery/Barudihapus'));
 const Brankas = lazy(() => import('./pages/Gallery/Brankas'));
 
 // Pages - Video
@@ -48,30 +48,24 @@ const BarudihapusPesan = lazy(() => import('./pages/Notes/BarudihapusPesan'));
 
 function App() {
 
-  // Splash Screen State
   const [showSplash, setShowSplash] = useState(true);
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#2A3A6A] font-sans overflow-x-hidden selection:bg-[#D85482]/30">
 
-      {/* SPLASH SCREEN */}
       {showSplash ? (
         <SplashScreen onComplete={() => setShowSplash(false)} />
       ) : (
         <>
-          {/* MAIN CONTENT */}
           <main className="pb-24 animate-fadeIn">
 
-            {/* SUSPENSE LOADING */}
             <Suspense
               fallback={
                 <div className="flex items-center justify-center min-h-screen bg-[#FAFAFA]">
                   <div className="flex flex-col items-center gap-4">
 
-                    {/* LOADER */}
                     <div className="w-12 h-12 border-4 border-[#D85482] border-t-transparent rounded-full animate-spin"></div>
 
-                    {/* TEXT */}
                     <p className="text-sm font-bold text-[#2A4480] tracking-wide">
                       Loading MyLove I&L 💙
                     </p>
@@ -124,7 +118,6 @@ function App() {
 
           </main>
 
-          {/* NAVBAR */}
           <Navbar />
         </>
       )}
