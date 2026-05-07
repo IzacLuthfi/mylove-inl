@@ -7,7 +7,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Database & Secrets (SANGAT PENTING)
+.env
+.env.local
+.env.production
+.env.development
+.env.*.local
+
+# Dependency directories
+node_modules/
+
+# Build output
 dist
 dist-ssr
 *.local
@@ -22,3 +32,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Vercel
+.vercel
