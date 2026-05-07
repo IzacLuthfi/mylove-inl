@@ -5,46 +5,46 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 
 // Splash Screen
-import SplashScreen from './pages/SplashScreen';
+import SplashScreen from './Pages/SplashScreen';
 
 // =========================
 // LAZY LOAD PAGES
 // =========================
 
 // Music
-const Music = lazy(() => import('./pages/Music/Music'));
+const Music = lazy(() => import('./Pages/Music/Music'));
 
 // Pages - Utama
-const Home = lazy(() => import('./pages/Home'));
-const Profil = lazy(() => import('./pages/Profil'));
-const Kenangan = lazy(() => import('./pages/Kenangan'));
+const Home = lazy(() => import('./Pages/Home'));
+const Profil = lazy(() => import('./Pages/Profil'));
+const Kenangan = lazy(() => import('./Pages/Kenangan'));
 
 // Pages - Gallery
-const Gallery = lazy(() => import('./pages/Gallery/Gallery'));
-const PengaturanGaleri = lazy(() => import('./pages/Gallery/Pengaturan'));
-const ArsipGaleri = lazy(() => import('./pages/Gallery/Arsip'));
-const BaruDihapus = lazy(() => import('./pages/Gallery/BaruDihapus'));
-const Brankas = lazy(() => import('./pages/Gallery/Brankas'));
+const Gallery = lazy(() => import('./Pages/Gallery/Gallery'));
+const PengaturanGaleri = lazy(() => import('./Pages/Gallery/Pengaturan'));
+const ArsipGaleri = lazy(() => import('./Pages/Gallery/Arsip'));
+const BaruDihapus = lazy(() => import('./Pages/Gallery/BaruDihapus'));
+const Brankas = lazy(() => import('./Pages/Gallery/Brankas'));
 
 // Pages - Video
-const Video = lazy(() => import('./pages/Video/Video'));
-const PengaturanVideo = lazy(() => import('./pages/Video/PengaturanVideo'));
-const ArsipVideo = lazy(() => import('./pages/Video/ArsipVideo'));
-const BarudihapusVideo = lazy(() => import('./pages/Video/BarudihapusVideo'));
-const BrankasVideo = lazy(() => import('./pages/Video/BrankasVideo'));
+const Video = lazy(() => import('./Pages/Video/Video'));
+const PengaturanVideo = lazy(() => import('./Pages/Video/PengaturanVideo'));
+const ArsipVideo = lazy(() => import('./Pages/Video/ArsipVideo'));
+const BarudihapusVideo = lazy(() => import('./Pages/Video/BarudihapusVideo'));
+const BrankasVideo = lazy(() => import('./Pages/Video/BrankasVideo'));
 
 // Pages - Planner
-const Planner = lazy(() => import('./pages/Planner/Planner'));
-const PengaturanPlanner = lazy(() => import('./pages/Planner/PengaturanPlanner'));
-const Plandihapus = lazy(() => import('./pages/Planner/Plandihapus'));
-const FormPlanner = lazy(() => import('./pages/Planner/FormPlanner'));
-const EditPlan = lazy(() => import('./pages/Planner/EditPlan'));
+const Planner = lazy(() => import('./Pages/Planner/Planner'));
+const PengaturanPlanner = lazy(() => import('./Pages/Planner/PengaturanPlanner'));
+const Plandihapus = lazy(() => import('./Pages/Planner/Plandihapus'));
+const FormPlanner = lazy(() => import('./Pages/Planner/FormPlanner'));
+const EditPlan = lazy(() => import('./Pages/Planner/EditPlan'));
 
 // Pages - Notes
-const Notes = lazy(() => import('./pages/Notes/Notes'));
-const ArsipPesan = lazy(() => import('./pages/Notes/ArsipPesan'));
-const Pengaturan = lazy(() => import('./pages/Notes/Pengaturan'));
-const BarudihapusPesan = lazy(() => import('./pages/Notes/BarudihapusPesan'));
+const Notes = lazy(() => import('./Pages/Notes/Notes'));
+const ArsipPesan = lazy(() => import('./Pages/Notes/ArsipPesan'));
+const Pengaturan = lazy(() => import('./Pages/Notes/Pengaturan'));
+const BarudihapusPesan = lazy(() => import('./Pages/Notes/BarudihapusPesan'));
 
 function App() {
 
