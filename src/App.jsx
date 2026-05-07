@@ -7,8 +7,13 @@ import Navbar from './components/Navbar';
 // Splash Screen
 import SplashScreen from './pages/SplashScreen';
 
+//Music
+import Music from './pages/Music/Music';
+
 // Pages - Utama
 import Home from './pages/Home';
+import Profil from './pages/Profil';
+import Kenangan from './pages/Kenangan';
 
 // Pages - Gallery
 import Gallery from './pages/Gallery/Gallery';
@@ -54,6 +59,11 @@ function App() {
             <Routes>
               {/* Home */}
               <Route path="/" element={<Home />} />
+              <Route path="/profil" element={<Profil />} />
+              <Route path="/kenangan" element={<Kenangan />} />
+
+              {/* Music */}
+              <Route path="/music" element={<Music />} />
 
               {/* Rute Galeri Foto */}
               <Route path="/gallery" element={<Gallery />} />
@@ -78,7 +88,6 @@ function App() {
 
               {/* Rute Notes / Catatan */}
               <Route path="/notes" element={<Notes />} />
-              {/* PERBAIKAN DI DUA BARIS BAWAH INI (tambah /notes di depannya) */}
               <Route path="/notes/arsip" element={<ArsipPesan />} />
               <Route path="/notes/pengaturan" element={<Pengaturan />} />
               <Route path="/notes/barudihapus" element={<BarudihapusPesan />} />

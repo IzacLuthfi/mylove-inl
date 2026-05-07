@@ -32,7 +32,7 @@ const NoteModal = ({ show, onClose, onSave, title, setTitle, content, setContent
 
         <button
           onClick={onSave}
-          className="w-full bg-[#D85482] hover:bg-[#c04770] text-white font-bold py-4 rounded-xl mt-6 transition-all shadow-lg active:scale-95"
+          className="w-full bg-[#D85482] hover:bg-[#c04770] text-white font-bold py-4 rounded-xl mt-6 transition-all shadow-lg shadow-[#D85482]/30 active:scale-95"
         >
           {editMode ? 'Simpan Perubahan' : 'Kirim Pesan'}
         </button>
